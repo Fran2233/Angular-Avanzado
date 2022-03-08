@@ -9,6 +9,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { PagesRoutingModule } from './pages.routing';
 import { FormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -26,7 +27,8 @@ import { ComponentsModule } from '../components/components.module';
     AppRoutingModule,
     PagesRoutingModule,
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    NgChartsModule
   ],
   exports:[
     DashboardComponent,

@@ -6,6 +6,7 @@ import { PagesModule } from './pages/pages.module';
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { AuthModule } from './auth/auth.module';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -19,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     AppRoutingModule,
     PagesModule,
-    AuthModule
+    AuthModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
