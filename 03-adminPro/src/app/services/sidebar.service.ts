@@ -32,6 +32,10 @@ export class SidebarService {
           titulo: 'Rxjs',
           url: 'rxjs'
         },
+        {
+          titulo: 'Perfil',
+          url: 'perfil'
+        }
       ]
     }
 
