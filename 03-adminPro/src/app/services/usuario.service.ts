@@ -6,6 +6,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { tap, map, Observable, catchError, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -24,13 +25,22 @@ export class UsuarioService {
     this.googleInit();
   }
 
-  get token():string{
+  get token(): string {
     return localStorage.getItem('token') || '';
   }
 
 
-  get uid(){
+  get uid() {
     return this.usuario.udi || '';
+  }
+
+
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
 
@@ -110,7 +120,7 @@ export class UsuarioService {
   //////////////////VALIDAR TOKENN////////////////////////
 
   validarToken(): Observable<boolean> {
-    
+
 
     return this.http.get(`${base_url}/login/renew`, {
       headers: {
@@ -146,19 +156,27 @@ export class UsuarioService {
 
 
   //////////////////ACTUALIZAR USER////////////////////////
-  updateProfile(data: { emai: string, nombre: string, role:any }) {
+  updateProfile(data: { emai: string, nombre: string, role: any }) {
 
-    data={
+    data = {
       ...data,
-      role:this.usuario.role
+      role: this.usuario.role
     };
 
-    return this.http.put(`${base_url}/usuarios/${this.uid}`, data,{
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
       headers: {
         'x-token': this.token
       }
     })
 
 
+  }
+
+
+
+
+  cargarUsuarios(desde: number = 0) {
+    const url = `${base_url}/usuarios?desde=${desde}`;
+    return this.http.get<CargarUsuario>(url, this.headers);
   }
 }
