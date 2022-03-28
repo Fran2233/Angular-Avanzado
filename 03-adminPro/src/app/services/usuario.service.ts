@@ -3,7 +3,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from '../../environments/environment';
 import { LoginForm } from '../interfaces/login-form.interface';
-import { tap, map, Observable, catchError, of } from 'rxjs';
+import { tap, map, Observable, catchError, of, delay } from 'rxjs';
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
@@ -31,7 +31,7 @@ export class UsuarioService {
 
 
   get uid() {
-    return this.usuario.udi || '';
+    return this.usuario.uid || '';
   }
 
 
@@ -158,10 +158,10 @@ export class UsuarioService {
   //////////////////ACTUALIZAR USER////////////////////////
   updateProfile(data: { emai: string, nombre: string, role: any }) {
 
-    data = {
-      ...data,
-      role: this.usuario.role
-    };
+  data ={
+    ...data,
+    role: this.usuario.role
+  }
 
     return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
       headers: {
@@ -177,6 +177,45 @@ export class UsuarioService {
 
   cargarUsuarios(desde: number = 0) {
     const url = `${base_url}/usuarios?desde=${desde}`;
-    return this.http.get<CargarUsuario>(url, this.headers);
+    return this.http.get<CargarUsuario>(url, this.headers)
+      .pipe(
+        delay(1000),
+        map(res => {
+
+          const usuarios = res.usuarios.map(user => new Usuario(
+            user.nombre, user.email, '', user.img, user.google, user.role, user.uid));
+
+
+          return {
+            total: res.total,
+            usuarios
+          }
+        })
+      )
+  }
+
+
+
+  borrarUsuario(usuario:Usuario){
+
+    const url = `${base_url}/usuarios/${usuario.uid}`;
+    return this.http.delete(url, this.headers);
+    
+    
+
+  }
+
+
+
+  guardarUsuario(usuario: Usuario) {
+
+
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, {
+      headers: {
+        'x-token': this.token
+      }
+    })
+
+
   }
 }

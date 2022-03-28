@@ -1,5 +1,5 @@
 import { environment } from '../../environments/environment';
-const baseURL  = environment.base_url;
+const baseURL = environment.base_url;
 export class Usuario {
     constructor(
         public nombre: string,
@@ -8,21 +8,26 @@ export class Usuario {
         public img?: string,
         public google?: Boolean,
         public role?: string,
-        public udi?: string) {
+        public uid?: string) {
 
     }
 
-    get imgUrl(){
-        if(this.img?.includes('https')){
+    get imgUrl() {
+
+        if (!this.img) {
+            return `${baseURL}/uploads/usuarios/noImagen`;
+        } else if (this.img?.includes('https')) {
             return this.img;
+        } else if (this.img) {
+            return `${baseURL}/uploads/usuarios/${this.img}`;
+        } else {
+            return `${baseURL}/uploads/usuarios/noImagen`;
         }
 
 
-        if(this.img){
-            return `${baseURL}/uploads/usuarios/${this.img}`;
-        }else{
-            return `${baseURL}/uploads/usuarios/noImagen`;
-        }     
+
+
+
     }
-    
+
 }
