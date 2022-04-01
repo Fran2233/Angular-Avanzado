@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+
 #themecolors .selector, .cursor{
     cursor: pointer;
 }
@@ -50,3 +53,6 @@
 .hidden{
     display: none;
 }
+
+
+

@@ -31,7 +31,7 @@ export class ModalImagenService {
     if (img.includes('https')) {
       this.img = img;
     } else {
-      this.img = `${base_url}/upload/${tipo}/${img}`
+      this.img = `${base_url}/uploads/${tipo}/${img}`
     }
   }
 
