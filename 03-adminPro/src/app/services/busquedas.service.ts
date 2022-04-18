@@ -50,6 +50,14 @@ export class BusquedasService {
 
 
 
+  buscarGlobal(termino: string) {
+    const url = `${base_url}/todo/${termino}`;
+    return this.http.get(url, this.headers);
+  }
+
+
+
+
   buscar(tipo: 'usuarios' | 'medicos' | 'hospitales',
 
     termino: string
@@ -63,13 +71,13 @@ export class BusquedasService {
             switch (tipo) {
               case 'usuarios':
                 return this.trasnformarUser(res.resultados)
-                
+
               case 'hospitales':
                 return this.trasnformarHospital(res.resultados)
 
               case 'medicos':
                 return this.transformarMedico(res.resultados)
-                
+
               default:
                 return [];
             }
@@ -79,7 +87,7 @@ export class BusquedasService {
           }
         )
       )
-      
+
   }
 
 }

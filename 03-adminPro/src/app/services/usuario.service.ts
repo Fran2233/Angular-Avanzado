@@ -30,6 +30,11 @@ export class UsuarioService {
   }
 
 
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE'{
+    return this.usuario.role!;
+  }
+
+
   get uid() {
     return this.usuario.uid || '';
   }
@@ -63,10 +68,16 @@ export class UsuarioService {
   }
 
 
+  saveLocalStorage(token:string,menu:any){
+    localStorage.setItem('token', token)
+    localStorage.setItem('menu', JSON.stringify(menu))
+  }
+
+
 
   logout() {
     localStorage.removeItem('token');
-
+    localStorage.removeItem('menu');
     this.auth2.signOut().then(() => {
       this.ngZone.run(() => {
         this.router.navigateByUrl('/login');
@@ -82,7 +93,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/usuarios`, formData)
       .pipe(
         tap((res: any) => {
-          localStorage.setItem('token', res.token)
+          this.saveLocalStorage(res.token, res.menu);
         })
       );
   }
@@ -96,7 +107,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData)
       .pipe(
         tap((res: any) => {
-          localStorage.setItem('token', res.token)
+          this.saveLocalStorage(res.token, res.menu);
         })
       );
 
@@ -109,7 +120,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, { token })
       .pipe(
         tap((res: any) => {
-          localStorage.setItem('token', res.token)
+          this.saveLocalStorage(res.token, res.menu);
         })
       );
 
@@ -146,7 +157,7 @@ export class UsuarioService {
           role,
           uid
         );
-        localStorage.setItem('token', res.token);
+        this.saveLocalStorage(res.token, res.menu);
         return true
       }),
 
@@ -158,10 +169,10 @@ export class UsuarioService {
   //////////////////ACTUALIZAR USER////////////////////////
   updateProfile(data: { emai: string, nombre: string, role: any }) {
 
-  data ={
-    ...data,
-    role: this.usuario.role
-  }
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
 
     return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
       headers: {
@@ -196,12 +207,12 @@ export class UsuarioService {
 
 
 
-  borrarUsuario(usuario:Usuario){
+  borrarUsuario(usuario: Usuario) {
 
     const url = `${base_url}/usuarios/${usuario.uid}`;
     return this.http.delete(url, this.headers);
-    
-    
+
+
 
   }
 
