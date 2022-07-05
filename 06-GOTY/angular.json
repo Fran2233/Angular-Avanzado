@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "06-Game-of-the-year": {
+    "06-GOTY": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:application": {
-          "strict": true
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/06-game-of-the-year",
+            "outputPath": "dist/06-goty",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "06-Game-of-the-year:build:production"
+              "browserTarget": "06-GOTY:build:production"
             },
             "development": {
-              "browserTarget": "06-Game-of-the-year:build:development"
+              "browserTarget": "06-GOTY:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "06-Game-of-the-year:build"
+            "browserTarget": "06-GOTY:build"
           }
         },
         "test": {
@@ -101,6 +97,5 @@
         }
       }
     }
-  },
-  "defaultProject": "06-Game-of-the-year"
+  }
 }
