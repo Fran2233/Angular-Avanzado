@@ -5,28 +5,28 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './grafico-barra-horizontal.component.html',
   styleUrls: ['./grafico-barra-horizontal.component.css']
 })
-export class GraficoBarraHorizontalComponent  {
+export class GraficoBarraHorizontalComponent {
 
- 
+
 
   results: any[] = [
-    [
-      {
-        "name": "Juego 1",
-        "value": 20
-      },
-      {
-        "name": "Juego 2",
-        "value": 25
-      },
-      {
-        "name": "Juego 3",
-        "value": 15
-      }
-    ]
+
+    {
+      "name": "Juego 1",
+      "value": 20
+    },
+    {
+      "name": "Juego 2",
+      "value": 25
+    },
+    {
+      "name": "Juego 3",
+      "value": 15
+    }
+
   ];
 
-  view: any[] = [700,400];
+  view: any[] = [700, 400];
 
   // options
   showXAxis = true;
@@ -40,7 +40,7 @@ export class GraficoBarraHorizontalComponent  {
 
   colorScheme = 'nightLights';
 
-  onSelect(event:any) {
+  onSelect(event: any) {
     console.log(event);
   }
 
